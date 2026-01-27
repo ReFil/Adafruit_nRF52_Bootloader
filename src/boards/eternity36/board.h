@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2020 Nick Winans
+ * Copyright (c) 2021 Polarity Works
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,35 +22,54 @@
  * THE SOFTWARE.
  */
 
-#ifndef _FORM_H
-#define _FORM_H
+#ifndef _NGP_H
+#define _NGP_H
 
 #define _PINNUM(port, pin)    ((port)*32 + (pin))
 
-//#define UICR_REGOUT0_VALUE UICR_REGOUT0_VOUT_3V3
+#define UICR_REGOUT0_VALUE UICR_REGOUT0_VOUT_3V3
 
 /*------------------------------------------------------------------*/
 /* LED
  *------------------------------------------------------------------*/
- #define LEDS_NUMBER           0
+#define LEDS_NUMBER       0
 
- #define LED_NEOPIXEL          _PINNUM(0, 20)
- #define NEOPIXELS_NUMBER      2
- #define BOARD_RGB_BRIGHTNESS  0x040404
+//Epaper
+
+#define EPD_PWR_PIN   _PINNUM(1, 7)
+#define EPD_PWR_ON    1
+
+#define EPD_CONTROLLER_SSD1680
+
+#define EPD_PIN_SCK       _PINNUM(0, 19)
+#define EPD_PIN_MOSI      _PINNUM(0,  17)
+
+#define EPD_PIN_CS        _PINNUM(0,  21)
+#define EPD_PIN_DC        _PINNUM(0,  23)
+#define EPD_PIN_RST       _PINNUM(0,  25)
+#define EPD_PIN_BSY        _PINNUM(1, 0)
+
+#define EPD_BSY_HIGH
+
+#define EPD_WIDTH         88
+#define EPD_HEIGHT        184
+
+#define DISPLAY_TITLE         "E36"
+
 
 /*------------------------------------------------------------------*/
 /* BUTTON
  *------------------------------------------------------------------*/
-#define BUTTONS_NUMBER    2  // none connected at all
-#define BUTTON_1          _PINNUM(0, 7)  // unusable: RESET
-#define BUTTON_2          _PINNUM(0, 13)  // i hope this can pull led pin enough to power
+#define BUTTONS_NUMBER    2  // One in use
+#define BUTTON_1          _PINNUM(0, 18)  // unusable: RESET
+#define BUTTON_2          _PINNUM(1, 6)  // no connection
 #define BUTTON_PULL       NRF_GPIO_PIN_PULLUP
 
 //--------------------------------------------------------------------+
 // BLE OTA
 //--------------------------------------------------------------------+
-#define BLEDIS_MANUFACTURER  "Kinesis Corporation"
-#define BLEDIS_MODEL         "Form"
+#define BLEDIS_MANUFACTURER  "Polarity Works"
+#define BLEDIS_MODEL         "NGP"
 
 //--------------------------------------------------------------------+
 // USB
@@ -59,9 +78,9 @@
 #define USB_DESC_UF2_PID       0x00B3
 #define USB_DESC_CDC_ONLY_PID  0x00B3
 
-#define UF2_PRODUCT_NAME  "Kinesis Form"
-#define UF2_VOLUME_LABEL  "Form"
-#define UF2_BOARD_ID      "kinesis-form"
-#define UF2_INDEX_URL     "https://www.nordicsemi.com/Products/Development-hardware/nrf52840-dongle"
+#define UF2_PRODUCT_NAME  "E36"
+#define UF2_VOLUME_LABEL  "E36"
+#define UF2_BOARD_ID      "nRF52840-e36-v1"
+#define UF2_INDEX_URL     "https://polarityworks.com"
 
-#endif // _FORM_H
+#endif // _NGP_H

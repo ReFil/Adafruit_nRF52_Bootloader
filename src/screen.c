@@ -270,7 +270,7 @@ void screen_draw_drag(void) {
 #include <string.h>
 #include <stdlib.h>
 
-static uint8_t frame_buf[1280];
+static uint8_t frame_buf[EPD_WIDTH*EPD_HEIGHT/2];
 extern const uint8_t font8[];
 extern const uint8_t pwlogo[];
 extern const uint8_t unmount[];
@@ -340,8 +340,33 @@ static void epd_draw_img(uint8_t x, uint8_t y, const uint8_t* icon, uint8_t w, u
   
 }
 
+static void epd_vertical_mirror(uint8_t* inbuf, uint8_t* outbuf) {
+  for(int i=0; i<EPD_HEIGHT; i++) {
+    for(int j=0; j<(EPD_WIDTH/8); j++)
+      outbuf[((EPD_HEIGHT-(i+1))*EPD_WIDTH/8)+j] = inbuf[j+((EPD_WIDTH*i)/8)];
+  }
+}
+
+uint8_t flipped_buf[EPD_HEIGHT*EPD_WIDTH/8];
+
 void epd_draw_unmount(void){
 
+  #if EPD_WIDTH == 88
+  #if EPD_HEIGHT == 184
+  // for GDEM0097T61
+  memset(frame_buf, 0xFF, 2024);
+  epd_draw_img(2, 4, pwlogo, 24, 24);
+  print(32, 12, DISPLAY_TITLE);
+  print(4, 57, "Bootloader");
+  epd_draw_img(12, 70, unmount, 64, 64);
+  print(16, 138, "Connect");
+  print(16, 146, "via USB");
+
+  epd_vertical_mirror(frame_buf, flipped_buf);
+  board_epd_draw(0, 0, EPD_WIDTH-1, EPD_HEIGHT-1, flipped_buf, 2024);
+
+  #endif
+  #endif
   #if EPD_WIDTH == 80 
   #if EPD_HEIGHT == 128
   // for GDEW0102T4
@@ -361,6 +386,20 @@ void epd_draw_unmount(void){
 
 void epd_draw_mounted(void) {
 
+
+  #if EPD_WIDTH == 88
+  #if EPD_HEIGHT == 184
+  // for GDEM0097T61
+  memset(frame_buf+737, 0xFF, 1287);
+  epd_draw_img(20, 70, mounted, 48, 64);
+  print(8, 138, "Connected");
+  print(12, 146, "Copy UF2");
+
+  epd_vertical_mirror(frame_buf, flipped_buf);
+  board_epd_draw(0, 0, EPD_WIDTH-1, EPD_HEIGHT-1, flipped_buf, 2024);
+
+  #endif
+  #endif
   #if EPD_WIDTH == 80 
   #if EPD_HEIGHT == 128
   // for GDEW0102T4
@@ -376,6 +415,19 @@ void epd_draw_mounted(void) {
 
 void epd_draw_flashing(void) {
 
+  #if EPD_WIDTH == 88
+  #if EPD_HEIGHT == 184
+  // for GDEM0097T61
+  memset(frame_buf+737, 0xFF, 1287);
+  epd_draw_img(12, 70, flashing, 64, 64);
+  print(12, 138, "Flashing");
+  print(12, 146, "Wait ...");
+
+  epd_vertical_mirror(frame_buf, flipped_buf);
+  board_epd_draw(0, 0, EPD_WIDTH-1, EPD_HEIGHT-1, flipped_buf, 2024);
+
+  #endif
+  #endif
   #if EPD_WIDTH == 80 
   #if EPD_HEIGHT == 128
   // for GDEW0102T4
@@ -387,10 +439,24 @@ void epd_draw_flashing(void) {
   #endif
   #endif
 
+
 }
 
 void epd_draw_complete(void) {
 
+  #if EPD_WIDTH == 88
+  #if EPD_HEIGHT == 184
+  // for GDEM0097T61
+  memset(frame_buf+737, 0xFF, 1287);
+  epd_draw_img(12, 70, complete, 64, 64);
+  print(12, 138, "Complete");
+  print(8, 146, "Rebooting");
+
+  epd_vertical_mirror(frame_buf, flipped_buf);
+  board_epd_draw(0, 0, EPD_WIDTH-1, EPD_HEIGHT-1, flipped_buf, 2024);
+
+  #endif
+  #endif
   #if EPD_WIDTH == 80 
   #if EPD_HEIGHT == 128
   // for GDEW0102T4
