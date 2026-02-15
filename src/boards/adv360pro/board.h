@@ -35,15 +35,15 @@
  #define LEDS_NUMBER           0
 
  #define LED_NEOPIXEL          _PINNUM(0, 20)
+ #define NEOPIXEL_POWER_PIN    _PINNUM(0, 13)
  #define NEOPIXELS_NUMBER      3
  #define BOARD_RGB_BRIGHTNESS  0x040404
 
 /*------------------------------------------------------------------*/
 /* BUTTON
  *------------------------------------------------------------------*/
-#define BUTTONS_NUMBER    2  // none connected at all
+#define BUTTONS_NUMBER    0  // none connected at all
 #define BUTTON_1          _PINNUM(0, 18)  // unusable: RESET
-#define BUTTON_2          _PINNUM(0, 13)  // i hope this can pull led pin enough to power
 #define BUTTON_PULL       NRF_GPIO_PIN_PULLUP
 
 //--------------------------------------------------------------------+
