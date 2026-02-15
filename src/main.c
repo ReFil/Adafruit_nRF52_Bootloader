@@ -255,8 +255,11 @@ static void check_dfu_mode(void) {
   bool const reason_reset_pin = (NRF_POWER->RESETREAS & POWER_RESETREAS_RESETPIN_Msk) ? true : false;
 
   // start either serial, uf2 or ble
-  bool dfu_start = _ota_dfu || serial_only_dfu || uf2_dfu ||
-                   (((*dbl_reset_mem) == DFU_DBL_RESET_MAGIC) && reason_reset_pin);
+  bool dfu_start = _ota_dfu || serial_only_dfu || uf2_dfu;
+  #ifndef SKIP_RESET_MODE
+  dfu_start |= (((*dbl_reset_mem) == DFU_DBL_RESET_MAGIC) && reason_reset_pin);
+  #endif
+  
 
   // Clear GPREGRET if it is our values
   if (dfu_start || dfu_skip) {
