@@ -41,8 +41,8 @@
 #define SHIFTER_PIN_SCK _PINNUM(0, 5)
 #define SHIFTER_INDEX 0
 #define SHIFTER_CH_B 4
-#define SHIFTER_CH_R 2
-#define SHIFTER_CH_G 3
+#define SHIFTER_CH_R 3
+#define SHIFTER_CH_G 2
 #define SHIFTER_2_LEDS
 #define SHIFTER_COM_ANODE
 

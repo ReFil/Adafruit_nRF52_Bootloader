@@ -38,11 +38,13 @@
 #define SHIFTER_PIN_MOSI _PINNUM(0, 4)
 #define SHIFTER_PIN_SCK _PINNUM(0, 5)
 #define SHIFTER_INDEX 1
-#define SHIFTER_CH_B 0
-#define SHIFTER_CH_R 2
+#define SHIFTER_CH_B 2
+#define SHIFTER_CH_R 0
 #define SHIFTER_CH_G 1
 #define SHIFTER_2_LEDS
 #define SHIFTER_COM_ANODE
+
+#define BOARD_RGB_BRIGHTNESS 0xffffff
 
 
 

@@ -334,6 +334,9 @@ static void check_dfu_mode(void) {
     } else {
       led_state(STATE_USB_UNMOUNTED);
       usb_init(serial_only_dfu);
+      // USB init may call mount/unmount callbacks which override
+      // bootloader LED state; restore bootloader indicator afterwards.
+      led_state(STATE_BOOTLOADER_STARTED);
     }
 
     // Initiate an update of the firmware.

@@ -803,7 +803,7 @@ static void spi_write(NRF_SPIM_Type *p_spim, uint8_t const *tx_buf, size_t tx_le
   nrf_spim_task_trigger(p_spim, NRF_SPIM_TASK_START);
 
   // blocking wait until xfer complete
-  while (!nrf_spim_event_check(p_spim, NRF_SPIM_EVENT_END)){}
+  while (!nrf_spim_event_check(p_spim, NRF_SPIM_EVENT_ENDTX)){}
 }
 void neopixel_init(void) {
   NRF_SPIM_Type* spi = NRF_SPIM1;
@@ -851,9 +851,10 @@ void neopixel_write (uint8_t *pixels) {
   #endif
   #endif
   spi_write(spi, &data, 1);
+NRFX_DELAY_MS(1);  
   
   #if SHIFTER_INDEX > 0
-  data = 0;
+  data = 0xFF;
     for(uint8_t i=0; i<SHIFTER_INDEX; i++)
       spi_write(spi, &data, 1);
   #endif
