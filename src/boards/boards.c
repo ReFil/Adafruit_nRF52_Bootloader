@@ -519,9 +519,7 @@ void led_state(uint32_t state) {
       primary_cycle_length = 3000;
       break;
 
-    case STATE_BOOTLOADER_STARTED:
-      break;
-      
+    case STATE_BOOTLOADER_STARTED:      
     case STATE_USB_UNMOUNTED:
       new_rgb_color = 0xffffff;
       primary_cycle_length = 300;
