@@ -33,6 +33,7 @@
 
 #include "uf2/uf2.h"
 #include "boards.h"
+#include "bootloader.h"
 
 //--------------------------------------------------------------------+
 // MACRO TYPEDEF CONSTANT ENUM DECLARATION
@@ -118,7 +119,8 @@ void usb_teardown(void) {
 // tinyusb callbacks
 //--------------------------------------------------------------------+
 void tud_mount_cb(void) {
-  led_state(STATE_USB_MOUNTED);
+  if (bootloader_app_is_valid())
+    led_state(STATE_USB_MOUNTED);
   #ifdef EPD_PIN_SCK
   epd_draw_mounted();
   #endif

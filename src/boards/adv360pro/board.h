@@ -32,7 +32,9 @@
 /*------------------------------------------------------------------*/
 /* LED
  *------------------------------------------------------------------*/
- #define LEDS_NUMBER           0
+ #define LEDS_NUMBER       1
+ #define LED_PRIMARY_PIN   _PINNUM(0, 17)
+ #define LED_STATE_ON      1
 
  #define LED_NEOPIXEL          _PINNUM(0, 20)
  #define NEOPIXEL_POWER_PIN    _PINNUM(0, 13)
